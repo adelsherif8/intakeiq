@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>IntakeIQ — AI Voice Intake &amp; Booking Agent</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+<style>
+:root{--bg:#0a0f1a;--panel:#111827;--panel2:#0d1420;--line:#1e2a3c;--ink:#e8edf6;--dim:#8a97ad;
+--acc:#3b82f6;--teal:#14b8a6;--green:#22c55e;--amber:#f59e0b;--red:#ef4444;--purple:#a78bfa}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Inter,system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.5}
+.wrap{max-width:1120px;margin:0 auto;padding:20px}
+header{display:flex;align-items:center;gap:13px;flex-wrap:wrap;margin-bottom:16px}
+.logo{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;font-size:1.25rem;background:linear-gradient(135deg,#3b82f6,#14b8a6);color:#04121f}
+.brand h1{font-size:1.26rem;letter-spacing:-.02em}
+.brand p{font-size:.82rem;color:var(--dim)}
+.badges{margin-left:auto;display:flex;gap:8px;flex-wrap:wrap}
+.badge{display:inline-flex;align-items:center;gap:7px;font-size:.75rem;font-weight:600;padding:6px 12px;border-radius:999px;border:1px solid var(--line);background:var(--panel)}
+.badge .dot{width:8px;height:8px;border-radius:50%}
+.badge.on .dot{background:var(--green);box-shadow:0 0 8px var(--green)}
+.badge.mock .dot{background:var(--amber);box-shadow:0 0 8px var(--amber)}
+.grid{display:grid;grid-template-columns:1fr 340px;gap:18px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px}
+.card h3{font-size:.74rem;text-transform:uppercase;letter-spacing:.06em;color:var(--dim);margin-bottom:12px;font-weight:600}
+/* call area */
+.feed{height:340px;overflow-y:auto;display:flex;flex-direction:column;gap:10px;padding:4px 2px 8px}
+.msg{max-width:82%;padding:10px 14px;border-radius:14px;font-size:.92rem}
+.msg.bot{background:var(--panel2);border:1px solid var(--line);align-self:flex-start;border-bottom-left-radius:4px}
+.msg.user{background:linear-gradient(135deg,#2563eb,#3b82f6);color:#fff;align-self:flex-end;border-bottom-right-radius:4px}
+.msg .who{font-size:.66rem;text-transform:uppercase;letter-spacing:.05em;opacity:.7;margin-bottom:2px}
+.startbox{text-align:center;padding:70px 20px;color:var(--dim)}
+.startbox i{font-size:2.4rem;color:#233246;margin-bottom:14px}
+.controls{display:flex;align-items:center;gap:12px;margin-top:14px;border-top:1px solid var(--line);padding-top:14px}
+.mic{width:60px;height:60px;border-radius:50%;border:none;cursor:pointer;font-size:1.3rem;color:#fff;flex-shrink:0;
+background:linear-gradient(135deg,#3b82f6,#2563eb);transition:.15s;display:grid;place-items:center}
+.mic.rec{background:linear-gradient(135deg,#ef4444,#dc2626);animation:pulse 1.2s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(239,68,68,.5)}70%{box-shadow:0 0 0 16px rgba(239,68,68,0)}100%{box-shadow:0 0 0 0 rgba(239,68,68,0)}}
+.mic:disabled{opacity:.4;cursor:default}
+.txt{flex:1;display:flex;gap:8px}
+.txt input{flex:1;background:var(--panel2);border:1px solid var(--line);border-radius:11px;color:var(--ink);padding:11px 13px;font-size:.92rem;font-family:inherit}
+.txt input:focus{outline:none;border-color:var(--acc)}
+.txt button{background:var(--panel2);border:1px solid var(--line);color:var(--ink);border-radius:11px;padding:0 15px;cursor:pointer;font-size:1rem}
+.hint{font-size:.72rem;color:var(--dim);margin-top:8px;text-align:center}
+.lat{font-size:.7rem;color:#5f6c82;text-align:center;margin-top:6px;font-variant-numeric:tabular-nums}
+.startbtn{background:linear-gradient(135deg,#22c55e,#16a34a);color:#fff;border:none;border-radius:12px;padding:14px 26px;font-weight:700;font-size:1rem;cursor:pointer;display:inline-flex;gap:10px;align-items:center}
+/* right rail */
+.stepper{display:flex;flex-direction:column;gap:2px;margin-bottom:6px}
+.step{display:flex;align-items:center;gap:10px;font-size:.86rem;color:var(--dim);padding:6px 0}
+.step .dot{width:22px;height:22px;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center;font-size:.7rem;flex-shrink:0}
+.step.active{color:var(--ink);font-weight:600}
+.step.active .dot{border-color:var(--acc);background:rgba(59,130,246,.15);color:#93c5fd}
+.step.done .dot{border-color:var(--green);background:var(--green);color:#04121f}
+.step.done{color:#9fb0c8}
+.field{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--line);font-size:.86rem}
+.field:last-child{border:none}
+.field .fi{width:26px;height:26px;border-radius:7px;background:var(--panel2);display:grid;place-items:center;color:var(--dim);flex-shrink:0}
+.field.set .fi{background:rgba(34,197,94,.15);color:#4ade80}
+.field .fl{color:var(--dim);width:64px;flex-shrink:0}
+.field .fv{color:var(--ink);font-weight:500;word-break:break-word}
+.booking{background:linear-gradient(180deg,rgba(34,197,94,.1),rgba(20,184,166,.06));border:1px solid rgba(34,197,94,.35);border-radius:13px;padding:16px;margin-top:12px;display:none}
+.booking.show{display:block}
+.booking h4{color:#4ade80;font-size:.95rem;display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.booking .row{font-size:.85rem;margin:3px 0;color:#cdd8e6}
+.booking .row b{color:#fff}
+.addcal{display:inline-flex;align-items:center;gap:8px;background:#fff;color:#0a0f1a;border-radius:9px;padding:9px 14px;font-weight:600;font-size:.85rem;text-decoration:none;margin-top:10px}
+.lf{display:inline-flex;align-items:center;gap:7px;font-size:.78rem;color:#60a5fa;margin-top:10px}
+.disc{font-size:.72rem;color:#5f6c82;margin-top:16px;text-align:center}
+footer{text-align:center;color:var(--dim);font-size:.8rem;margin-top:20px}
+@media(max-width:900px){.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="logo"><i class="fa-solid fa-headset"></i></div>
+    <div class="brand">
+      <h1>IntakeIQ</h1>
+      <p>AI voice agent — qualifies the caller, captures intake, and books the appointment.</p>
+    </div>
+    <div class="badges">
+      <div class="badge {{ 'on' if mode=='openai' else 'mock' }}"><span class="dot"></span>
+        {{ 'Voice live (Whisper · GPT-4o · TTS)' if mode=='openai' else 'Text demo mode' }}</div>
+      <div class="badge {{ 'on' if langfuse else '' }}"><span class="dot"></span>
+        {{ 'Langfuse' if langfuse else 'Trace: in-app' }}</div>
+    </div>
+  </header>
+
+  <div class="grid">
+    <!-- call -->
+    <div class="card">
+      <h3><i class="fa-solid fa-phone-volume"></i> Live call &nbsp;·&nbsp; {{ business }}</h3>
+      <div class="feed" id="feed">
+        <div class="startbox" id="startbox">
+          <i class="fa-solid fa-microphone-lines"></i>
+          <div style="margin-bottom:16px">Start a call and talk to the intake agent in your browser.</div>
+          <button class="startbtn" onclick="startCall()"><i class="fa-solid fa-phone"></i> Start call</button>
+        </div>
+      </div>
+      <div class="controls" id="controls" style="display:none">
+        <button class="mic" id="mic" onclick="toggleMic()" title="Tap to talk"><i class="fa-solid fa-microphone"></i></button>
+        <div class="txt">
+          <input id="tin" placeholder="…or type your reply and press Enter" autocomplete="off"/>
+          <button onclick="sendText()"><i class="fa-solid fa-paper-plane"></i></button>
+        </div>
+      </div>
+      <div class="hint" id="hint" style="display:none">Tap the mic, speak, then tap again to send.</div>
+      <div class="lat" id="lat"></div>
+    </div>
+
+    <!-- intake status -->
+    <div class="card">
+      <h3><i class="fa-solid fa-list-check"></i> Intake progress</h3>
+      <div class="stepper" id="stepper"></div>
+      <h3 style="margin-top:14px"><i class="fa-solid fa-id-card"></i> Captured</h3>
+      <div class="field" data-f="name"><span class="fi"><i class="fa-solid fa-user"></i></span><span class="fl">Name</span><span class="fv" id="v-name">—</span></div>
+      <div class="field" data-f="reason"><span class="fi"><i class="fa-solid fa-notes-medical"></i></span><span class="fl">Reason</span><span class="fv" id="v-reason">—</span></div>
+      <div class="field" data-f="phone"><span class="fi"><i class="fa-solid fa-phone"></i></span><span class="fl">Phone</span><span class="fv" id="v-phone">—</span></div>
+      <div class="field" data-f="email"><span class="fi"><i class="fa-solid fa-envelope"></i></span><span class="fl">Email</span><span class="fv" id="v-email">—</span></div>
+
+      <div class="booking" id="booking">
+        <h4><i class="fa-solid fa-calendar-check"></i> Appointment booked</h4>
+        <div class="row" id="b-who"></div>
+        <div class="row" id="b-when"></div>
+        <a class="addcal" id="b-ics" download="appointment.ics"><i class="fa-solid fa-calendar-plus"></i> Add to calendar</a>
+        <div><a class="lf" id="b-lf" target="_blank" style="display:none"><i class="fa-solid fa-satellite-dish"></i> View turn trace in Langfuse</a></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="disc"><i class="fa-solid fa-circle-info"></i> Demo with synthetic data. Booking generates a real calendar invite (.ics) you can add to any calendar; a live Google Calendar API path is production-ready.</div>
+  <footer>IntakeIQ · Whisper · GPT-4o · OpenAI TTS · LangGraph state machine · Langfuse · built by Adel Atya</footer>
+</div>
+
+<script>
+const STAGES = ["greeting","qualifying","scheduling","confirming","done"];
+const STAGE_LABEL = {greeting:"Greeting",qualifying:"Qualifying",scheduling:"Scheduling",confirming:"Confirming",done:"Booked"};
+const $ = id => document.getElementById(id);
+let STATE = {}, recording=false, mediaRecorder, chunks=[], busy=false, LIVE = {{ 'true' if mode=='openai' else 'false' }};
+
+function renderStepper(stage){
+  const idx = STAGES.indexOf(stage);
+  $('stepper').innerHTML = STAGES.map((s,i)=>{
+    const cls = i<idx?'done':(i===idx?'active':'');
+    const ic = i<idx?'<i class="fa-solid fa-check"></i>':(i+1);
+    return `<div class="step ${cls}"><span class="dot">${ic}</span> ${STAGE_LABEL[s]}</div>`;
+  }).join('');
+}
+renderStepper('greeting');
+
+function addMsg(who,text){
+  const d=document.createElement('div'); d.className='msg '+who;
+  d.innerHTML=`<div class="who">${who==='bot'?'Agent':'You'}</div>${escapeHtml(text)}`;
+  $('feed').appendChild(d); $('feed').scrollTop=$('feed').scrollHeight;
+}
+function setField(f,v){
+  const el=$('v-'+f); if(!el) return;
+  el.textContent = v||'—';
+  document.querySelector(`.field[data-f="${f}"]`).classList.toggle('set', !!v);
+}
+
+async function startCall(){
+  $('startbox').remove();
+  $('controls').style.display='flex'; $('hint').style.display= LIVE?'block':'none';
+  if(!LIVE) $('mic').disabled=true;
+  await send({text:'Hello'}, false);
+}
+
+function apply(d){
+  if(d.error){ addMsg('bot', d.error); return; }
+  if(d.user_text) addMsg('user', d.user_text);
+  addMsg('bot', d.reply);
+  STATE = d.state;
+  const c=d.collected||{}; ['name','reason','phone','email'].forEach(f=>setField(f,c[f]));
+  renderStepper(d.stage);
+  const l=d.latency||{};
+  $('lat').textContent = l.total? `STT ${l.stt||0}ms · LLM ${l.llm||0}ms · TTS ${l.tts||0}ms · total ${l.total}ms` : '';
+  if(d.booking){
+    $('booking').classList.add('show');
+    $('b-who').innerHTML = `<b>${escapeHtml(d.booking.name)}</b> — ${escapeHtml(d.booking.reason)}`;
+    $('b-when').innerHTML = `<b>${escapeHtml(d.booking.slot_label)}</b>`;
+    $('b-ics').href = d.booking.ics_url;
+    if(d.trace_url){ $('b-lf').style.display='inline-flex'; $('b-lf').href=d.trace_url; }
+  }
+  // speak
+  if(d.reply_audio){ new Audio('data:audio/mp3;base64,'+d.reply_audio).play().catch(()=>{}); }
+  else if(d.reply && 'speechSynthesis' in window){ const u=new SpeechSynthesisUtterance(d.reply); u.rate=1.05; speechSynthesis.speak(u); }
+}
+
+async function send(payload, isVoice){
+  if(busy) return; busy=true;
+  try{
+    let r;
+    if(isVoice){
+      const fd=new FormData(); fd.append('audio', payload.blob, 'audio.webm'); fd.append('state', JSON.stringify(STATE));
+      r = await fetch('/turn/voice',{method:'POST',body:fd});
+    } else {
+      r = await fetch('/turn/text',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({text:payload.text,state:STATE})});
+    }
+    apply(await r.json());
+  }catch(e){ addMsg('bot','Connection error: '+e); }
+  finally{ busy=false; }
+}
+
+function sendText(){ const t=$('tin').value.trim(); if(!t)return; $('tin').value=''; send({text:t}, false); }
+$('tin').addEventListener('keydown',e=>{ if(e.key==='Enter') sendText(); });
+
+async function toggleMic(){
+  if(!LIVE) return;
+  if(recording){ mediaRecorder.stop(); recording=false; $('mic').classList.remove('rec'); $('mic').innerHTML='<i class="fa-solid fa-microphone"></i>'; return; }
+  try{
+    const stream=await navigator.mediaDevices.getUserMedia({audio:true});
+    mediaRecorder=new MediaRecorder(stream); chunks=[];
+    mediaRecorder.ondataavailable=e=>chunks.push(e.data);
+    mediaRecorder.onstop=async()=>{ const blob=new Blob(chunks,{type:'audio/webm'}); stream.getTracks().forEach(t=>t.stop()); await send({blob}, true); };
+    mediaRecorder.start(); recording=true; $('mic').classList.add('rec'); $('mic').innerHTML='<i class="fa-solid fa-stop"></i>';
+  }catch(e){ addMsg('bot','Microphone access denied — you can type instead.'); }
+}
+
+function escapeHtml(s){return String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
+</script>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!doctype html><html><head><meta charset="utf-8"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,'Segoe UI',Inter,sans-serif}
+body{width:1200px;height:750px;overflow:hidden;position:relative;color:#e8edf6;
+background:radial-gradient(60% 55% at 14% 8%,rgba(59,130,246,.22),transparent 60%),
+           radial-gradient(55% 55% at 90% 95%,rgba(20,184,166,.20),transparent 60%),#0a0f1a}
+.grid{position:absolute;inset:0;opacity:.26;
+background-image:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);
+background-size:46px 46px;mask-image:radial-gradient(circle at 40% 40%,#000,transparent 80%)}
+.wrap{position:relative;padding:52px 58px;height:100%;display:flex;flex-direction:column}
+.brand{display:flex;align-items:center;gap:15px;margin-bottom:26px}
+.logo{width:56px;height:56px;border-radius:15px;display:grid;place-items:center;background:linear-gradient(135deg,#3b82f6,#14b8a6);color:#04121f;font-size:1.5rem}
+.brand .n{font-size:1.5rem;font-weight:700;letter-spacing:-.02em}
+.brand .n small{display:block;font-size:.8rem;font-weight:500;color:#8a97ad}
+.badges{margin-left:auto;display:flex;gap:9px}
+.bd{display:inline-flex;align-items:center;gap:8px;font-size:.8rem;font-weight:600;color:#34d399;border:1px solid rgba(52,211,153,.4);background:rgba(52,211,153,.09);padding:8px 14px;border-radius:999px}
+.bd .dot{width:8px;height:8px;border-radius:50%;background:#34d399;box-shadow:0 0 9px #34d399}
+.main{display:flex;gap:40px;flex:1;align-items:center}
+.left{width:560px}
+.left h1{font-size:3rem;line-height:1.06;letter-spacing:-.03em;font-weight:700}
+.left h1 .g{background:linear-gradient(120deg,#60a5fa,#2dd4bf);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.left .sub{font-size:1.14rem;color:#aeb7c7;margin-top:16px;line-height:1.5}
+.feats{margin-top:26px;display:flex;flex-direction:column;gap:12px}
+.feat{display:flex;align-items:center;gap:13px;font-size:1rem;color:#d6dde9}
+.feat i{width:32px;height:32px;border-radius:9px;display:grid;place-items:center;font-size:.9rem;background:rgba(59,130,246,.16);color:#93c5fd;flex-shrink:0}
+.feat.g i{background:rgba(20,184,166,.16);color:#5eead4}
+.mock{flex:1;background:linear-gradient(180deg,#111827,#0d1420);border:1px solid #22303f;border-radius:20px;padding:20px;box-shadow:0 30px 70px rgba(0,0,0,.5)}
+.bub{padding:9px 13px;border-radius:12px;font-size:.84rem;margin-bottom:8px;max-width:88%}
+.bub.u{background:linear-gradient(135deg,#2563eb,#3b82f6);color:#fff;margin-left:auto;border-bottom-right-radius:3px}
+.bub.b{background:#0d1420;border:1px solid #22303f;border-bottom-left-radius:3px}
+.booked{margin-top:12px;background:linear-gradient(180deg,rgba(34,197,94,.12),rgba(20,184,166,.06));border:1px solid rgba(34,197,94,.35);border-radius:12px;padding:13px 15px}
+.booked h4{color:#4ade80;font-size:.9rem;display:flex;align-items:center;gap:8px;margin-bottom:5px}
+.booked .r{font-size:.82rem;color:#cdd8e6}.booked .r b{color:#fff}
+.chips{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
+.chips span{font-size:.72rem;padding:6px 10px;border-radius:8px;background:#0d1420;border:1px solid #22303f;color:#9fb0c8}
+.foot{margin-top:20px;display:flex;align-items:center;justify-content:space-between;color:#7b8698;font-size:.9rem}
+.stack{display:flex;gap:8px}
+.stack span{font-size:.8rem;padding:6px 11px;border-radius:8px;background:rgba(255,255,255,.05);border:1px solid #22303f;color:#c5cede}
+</style></head>
+<body>
+<div class="grid"></div>
+<div class="wrap">
+  <div class="brand">
+    <div class="logo"><i class="fa-solid fa-headset"></i></div>
+    <div class="n">IntakeIQ<small>AI Voice Intake &amp; Booking Agent</small></div>
+    <div class="badges"><span class="bd"><span class="dot"></span>Voice live</span><span class="bd"><span class="dot"></span>Langfuse</span></div>
+  </div>
+  <div class="main">
+    <div class="left">
+      <h1>Callers talk.<br/><span class="g">The agent books.</span></h1>
+      <div class="sub">A browser voice agent that greets, qualifies, and books the appointment — then sends a real calendar invite.</div>
+      <div class="feats">
+        <div class="feat"><i class="fa-solid fa-microphone-lines"></i> Real-time browser voice — Whisper → GPT-4o → TTS</div>
+        <div class="feat"><i class="fa-solid fa-diagram-project"></i> LangGraph state machine: greet → qualify → schedule → confirm</div>
+        <div class="feat g"><i class="fa-solid fa-calendar-check"></i> Books a real calendar invite (.ics) on close</div>
+        <div class="feat g"><i class="fa-solid fa-satellite-dish"></i> Every turn traced in Langfuse</div>
+      </div>
+    </div>
+    <div class="mock">
+      <div class="bub b">Thanks! We have openings Monday at 10 AM, 11 AM, or 2 PM. Which works?</div>
+      <div class="bub u">The afternoon one works</div>
+      <div class="bub b">Perfect — you're all set for Monday at 2 PM, Sarah!</div>
+      <div class="booked">
+        <h4><i class="fa-solid fa-calendar-check"></i> Appointment booked</h4>
+        <div class="r"><b>Sarah Johnson</b> — teeth cleaning</div>
+        <div class="r"><b>Monday Jul 13 at 2:00 PM</b> · invite sent</div>
+      </div>
+      <div class="chips"><span>name · reason · phone · email captured</span></div>
+    </div>
+  </div>
+  <div class="foot">
+    <div class="stack"><span>Whisper</span><span>GPT-4o</span><span>OpenAI TTS</span><span>LangGraph</span><span>Langfuse</span></div>
+    <span>voice intake &amp; booking</span>
+  </div>
+</div>
+</body></html>
