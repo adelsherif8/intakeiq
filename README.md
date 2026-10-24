@@ -45,3 +45,7 @@ uvicorn app.main:app --reload   # http://localhost:8000
 Python · FastAPI · LangGraph · GPT-4o · Whisper · OpenAI TTS · Langfuse
 
 Built by **Adel Atya** — adelatya.vercel.app
+
+---
+
+Built by **Adel Atya**, AI engineer: AI voice agents, agentic systems and automation for businesses. [adelatya.com](https://adelatya.com)
